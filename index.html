@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Blaze | Grief SMP 1.16.5</title>
+    <!-- Современный читаемый шрифт Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #09090b;
+            --bg-card: rgba(18, 18, 22, 0.75);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 102, 0, 0.4);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent-orange: #ff5500;
+            --accent-red: #ff2200;
+            --accent-gold: #ffaa00;
+            --gradient-fire: linear-gradient(135deg, #ff5500 0%, #ff0055 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(255, 85, 0, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(255, 0, 85, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-card);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Главный баннер (Hero) */
+        .hero {
+            padding: 160px 20px 100px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 99px;
+            background: rgba(255, 85, 0, 0.1);
+            border: 1px solid rgba(255, 85, 0, 0.2);
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 36px;
+        }
+
+        .ip-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            padding: 16px 28px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .ip-box:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 85, 0, 0.15);
+        }
+
+        .ip-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            background: var(--gradient-fire);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .card p, .card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card ul li::before {
+            content: "•";
+            color: var(--accent-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Таблица Рангов */
+        .ranks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .rank-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rank-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rank-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .rank-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Формы обратной связи и тикетов */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-card);
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-orange);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--gradient-fire);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Админ-карточки */
+        .admin-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .admin-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #333 0%, #111 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Подвал */
+        footer {
+            border-top: 1px solid var(--border-card);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <nav>
+        <div class="logo">INFINITY BLAZE</div>
+        <ul class="nav-links">
+            <li><a href="#rules">Правила</a></li>
+            <li><a href="#ranks">Привилегии</a></li>
+            <li><a href="#activities">Ивенты</a></li>
+            <li><a href="#community">Сообщество</a></li>
+            <li><a href="#tickets">Поддержка</a></li>
+        </ul>
+    </nav>
+
+    <!-- Главный баннер -->
+    <section class="hero">
+        <div class="badge">🔥 БЕТА-ТЕСТИРОВАНИЕ ПРОЕКТА</div>
+        <h1>Настоящий Гриферский Хаос на 1.16.5</h1>
+        <p>Бескомпромиссное выживание, автошахты, боссы MythicMobs и уникальные ивенты. Настрой трапецию и подчири себе Незер.</p>
+        
+        <div class="ip-box" onclick="copyIP()">
+            <div>
+                <div class="ip-text" id="ip-address">infinityblaze.joinserver.ru</div>
+            </div>
+            <button class="copy-btn" id="copy-btn">Скопировать IP</button>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Раздел: Новости и Статус -->
+        <h2 class="section-title">📢 Новости и Бета-тест</h2>
+        <p class="section-desc">Сервер активно разрабатывается в течение месяца. Вступай в игру прямо сейчас!</p>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Запуск Беты</h3>
+                <p>Основной гриферский режим открыт для всех игроков. Исследуйте карту, торгуйте со скупщиком RSeller и собирайте первые ресурсы.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔮</div>
+                <h3>В разработке</h3>
+                <p>Скоро на сервере откроются режимы <b>Бесконечные блоки</b> и <b>SkyWars</b>. Следите за анонсами в Telegram!</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎉</div>
+                <h3>Розыгрыш Беты</h3>
+                <p>Разыгрываем донат-ранги <b>[Blaze]</b>, <b>[Inferno]</b>, <b>[Phoenix]</b> и кейсы среди первых игроков. Условия — в нашем Discord!</p>
+            </div>
+        </div>
+
+        <!-- Раздел: Правила и Проверка на читы -->
+        <h2 class="section-title" id="rules">📜 Правила & Проверка на читы</h2>
+        <p class="section-desc">Строгие законы для комфортной, но жесткой гриферам игры.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>⚔️ Грифинг и Игра</h3>
+                <ul>
+                    <li><b>Разрешено:</b> Обман при трейде, гриф соклановцев, залив лавой, зажим в трапециях.</li>
+                    <li><b>Запрещено:</b> Использование софта, читов (X-Ray, KillAura, Fly) и автокликеров. <i>(Бан от 30 дней до пермача)</i>.</li>
+                    <li>Багоюз и дюп строго караются баном от 14 дней с изъятием имущества.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🔍 Регламент Проверки</h3>
+                <ul>
+                    <li>При вызове на проверку <b>запрещено выходить из игры</b>.</li>
+                    <li>У вас есть <b>5 минут</b> для предоставления Discord/Telegram.</li>
+                    <li>Проверка проходит через демонстрацию экрана или AnyDesk.</li>
+                    <li>Выход из игры или отказ от проверки = <b>Автоматический бан на 30 дней</b>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Раздел: Донат Ранги -->
+        <h2 class="section-title" id="ranks">💎 Иерархия Привилегий</h2>
+        <p class="section-desc">Донат-ранги сервера от младшего к старшему. Покупка временно через ЛС администрации.</p>
+
+        <div class="ranks-grid">
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FFFF00;"></div><span class="rank-name">Spark</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#00FFFF;"></div><span class="rank-name">Breeze</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FF0000;"></div><span class="rank-name">Ignite</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#8B0000;"></div><span class="rank-name">Ember</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#00FF00;"></div><span class="rank-name">Zephyr</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#008B8B;"></div><span class="rank-name">Gale</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#00008B;"></div><span class="rank-name">Winstorm</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#0000FF;"></div><span class="rank-name">Squall</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FF0000;"></div><span class="rank-name">Volcano</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FFFF00;"></div><span class="rank-name">Phoenix</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#8B0000;"></div><span class="rank-name">Inferno</span></div></div>
+            <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FFD700;"></div><span class="rank-name">Blaze (TOP)</span></div></div>
+        </div>
+
+        <!-- Раздел: Ивенты, Боссы и Кланы -->
+        <h2 class="section-title" id="activities">☄️ Геймплей и Активации</h2>
+        <p class="section-desc">Всё, что поможет тебе заработать монеты и залутать топовую броню.</p>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🎁</div>
+                <h3>Стартовый Лут</h3>
+                <p>Вводи команду <b>/kit start</b> при первом входе, чтобы получить начальные инструменты для вылазки на автошахту.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👹</div>
+                <h3>Аирдропы и Боссы</h3>
+                <p>На карте регулярно выпадают ценные Аирдропы, а на PvP-арене спавнятся боссы MythicMobs с уникальным лутом.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚔️</div>
+                <h3>Клановый Поиск</h3>
+                <p>Ищи тимейтов для рейдов и постройки трапеций в специальном разделе нашего Discord-сервера.</p>
+            </div>
+        </div>
+
+        <!-- Раздел: Баги, Идеи и Тикеты -->
+        <h2 class="section-title" id="tickets">🎟️ Охота за багами & Поддержка</h2>
+        <p class="section-desc">Нашел баг на бете? Сообщи нам и получи донат-кейсы или валюту!</p>
+
+        <div class="grid">
+            <!-- Симулятор тикета -->
+            <div class="card">
+                <h3>📩 Отправить Тикет / Сообщить о баге</h3>
+                <form onsubmit="event.preventDefault(); alert('Скопируйте текст обращения и отправьте администратору в Discord/Telegram!');">
+                    <div class="form-group">
+                        <label>Ваш Игровой Ник</label>
+                        <input type="text" class="form-control" placeholder="например, Steeve_Grief" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Тип обращения</label>
+                        <select class="form-control">
+                            <label>Тип обращения</label>
+                            <option>Нашел критический баг (Награда)</option>
+                            <option>Жалоба на читера</option>
+                            <option>Покупка доната временно вручную</option>
+                            <option>Идея для сервера</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание ситуации / ссылка на доказательства</label>
+                        <textarea class="form-control" placeholder="Опишите баг или прикрепите ссылку на видео/скриншот..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Сформировать обращение</button>
+                </form>
+            </div>
+
+            <!-- Администрация -->
+            <div class="card">
+                <h3>👑 Администрация Проекта</h3>
+                <p style="margin-bottom: 20px;">По всем вопросам беты, покупки доната и багов пишите напрямую руководству:</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="admin-card">
+                        <div class="admin-avatar">🔥</div>
+                        <div>
+                            <div style="font-weight:700;">kimelow34</div>
+                            <div style="font-size:0.85rem; color:var(--text-muted);">Создатель & Главный Ифрит</div>
+                        </div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="admin-avatar">🕵️‍♂️</div>
+                        <div>
+                            <div style="font-weight:700;">SpikerFnafer</div>
+                            <div style="font-size:0.85rem; color:var(--text-muted);">Помощник & Админ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Раздел: Соцсети -->
+        <h2 class="section-title" id="community">🌐 Официальные Соцсети</h2>
+        <p class="section-desc">Присоединяйтесь к нашему комьюнити, чтобы не пропустить стримы и обновления.</p>
+
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <a href="https://t.me/kimeib" target="_blank" style="text-decoration:none;">
+                <div class="card" style="text-align:center; padding:24px;">
+                    <div class="card-icon">💬</div>
+                    <h3>Telegram</h3>
+                    <p>Новости и Анонсы</p>
+                </div>
+            </a>
+            <a href="https://discord.gg/G3WHd8JbU" target="_blank" style="text-decoration:none;">
+                <div class="card" style="text-align:center; padding:24px;">
+                    <div class="card-icon">👾</div>
+                    <h3>Discord</h3>
+                    <p>Основное Сообщество</p>
+                </div>
+            </a>
+            <a href="https://www.twitch.tv/kimelow34?sr=a" target="_blank" style="text-decoration:none;">
+                <div class="card" style="text-align:center; padding:24px;">
+                    <div class="card-icon">🔴</div>
+                    <h3>Twitch</h3>
+                    <p>Стримы kimelow34</p>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/@Kimelow" target="_blank" style="text-decoration:none;">
+                <div class="card" style="text-align:center; padding:24px;">
+                    <div class="card-icon">📺</div>
+                    <h3>YouTube</h3>
+                    <p>Видео от Админов</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+        <p>© 2026 Infinity Blaze (Blaze Grid). Minecraft Grief SMP 1.16.5</p>
+        <p style="margin-top: 8px; font-size: 0.8rem; color: #666;">По всем вопросам: kimesp2202@gmail.com</p>
+    </footer>
+
+    <!-- Скрипт копирования IP -->
+    <script>
+        function copyIP() {
+            const ipText = document.getElementById('ip-address').innerText;
+            const copyBtn = document.getElementById('copy-btn');
+
+            navigator.clipboard.writeText(ipText).then(() => {
+                copyBtn.innerText = "IP Скопирован!";
+                copyBtn.style.background = "#22c55e";
+
+                setTimeout(() => {
+                    copyBtn.innerText = "Скопировать IP";
+                    copyBtn.style.background = "linear-gradient(135deg, #ff5500 0%, #ff0055 100%)";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
