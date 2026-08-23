@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Blaze | Grief SMP 1.16.5</title>
-    <!-- Современный читаемый шрифт Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -84,9 +83,9 @@
             color: var(--text-main);
         }
 
-        /* Главный баннер (Hero) */
+        /* Hero Баннер */
         .hero {
-            padding: 160px 20px 100px;
+            padding: 160px 20px 60px;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
@@ -119,14 +118,23 @@
             margin: 0 auto 36px;
         }
 
+        /* Блок с IP адресами */
+        .ip-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
         .ip-box {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            padding: 16px 28px;
+            padding: 14px 24px;
             border-radius: 16px;
             display: inline-flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
@@ -139,7 +147,7 @@
         }
 
         .ip-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.5px;
         }
@@ -148,14 +156,57 @@
             background: var(--gradient-fire);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
-        /* Основной контент */
+        /* Виджет мониторинга */
+        .status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 450px;
+            margin: 0 auto 60px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .status-header {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #666;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .online-count {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Контентные секции */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -264,7 +315,7 @@
             font-size: 1rem;
         }
 
-        /* Формы обратной связи и тикетов */
+        /* Формы тикетов */
         .form-group {
             margin-bottom: 16px;
         }
@@ -337,7 +388,6 @@
             font-size: 1.5rem;
         }
 
-        /* Подвал */
         footer {
             border-top: 1px solid var(--border-card);
             padding: 40px 20px;
@@ -366,23 +416,38 @@
         </ul>
     </nav>
 
-    <!-- Главный баннер -->
+    <!-- Hero Блок -->
     <section class="hero">
         <div class="badge">🔥 БЕТА-ТЕСТИРОВАНИЕ ПРОЕКТА</div>
         <h1>Настоящий Гриферский Хаос на 1.16.5</h1>
         <p>Бескомпромиссное выживание, автошахты, боссы MythicMobs и уникальные ивенты. Настрой трапецию и подчири себе Незер.</p>
         
-        <div class="ip-box" onclick="copyIP()">
-            <div>
-                <div class="ip-text" id="ip-address">infinityblaze.joinserver.ru</div>
+        <!-- Кнопки копирования двух IP -->
+        <div class="ip-container">
+            <div class="ip-box" onclick="copyIP('infinityblaze.joinserver.ru', 'btn-ru')">
+                <span class="ip-text">infinityblaze.joinserver.ru</span>
+                <button class="copy-btn" id="btn-ru">Скопировать</button>
             </div>
-            <button class="copy-btn" id="copy-btn">Скопировать IP</button>
+            <div class="ip-box" onclick="copyIP('infinityblaze.joinserver.xyz', 'btn-xyz')">
+                <span class="ip-text">infinityblaze.joinserver.xyz</span>
+                <button class="copy-btn" id="btn-xyz">Запасной IP</button>
+            </div>
         </div>
     </section>
 
+    <!-- Мониторинг онлайна -->
+    <div class="status-card">
+        <div class="status-header">Статус Сервера</div>
+        <div class="status-badge">
+            <span id="status-dot" class="status-dot"></span>
+            <span id="status-text">Загрузка...</span>
+        </div>
+        <div id="online-count" class="online-count">Игроков онлайн: -- / 500</div>
+    </div>
+
     <div class="container">
 
-        <!-- Раздел: Новости и Статус -->
+        <!-- Раздел: Новости -->
         <h2 class="section-title">📢 Новости и Бета-тест</h2>
         <p class="section-desc">Сервер активно разрабатывается в течение месяца. Вступай в игру прямо сейчас!</p>
         
@@ -404,9 +469,9 @@
             </div>
         </div>
 
-        <!-- Раздел: Правила и Проверка на читы -->
+        <!-- Раздел: Правила -->
         <h2 class="section-title" id="rules">📜 Правила & Проверка на читы</h2>
-        <p class="section-desc">Строгие законы для комфортной, но жесткой гриферам игры.</p>
+        <p class="section-desc">Строгие законы для комфортной, но жесткой игры.</p>
 
         <div class="grid">
             <div class="card">
@@ -447,7 +512,7 @@
             <div class="rank-card"><div class="rank-info"><div class="rank-dot" style="background:#FFD700;"></div><span class="rank-name">Blaze (TOP)</span></div></div>
         </div>
 
-        <!-- Раздел: Ивенты, Боссы и Кланы -->
+        <!-- Раздел: Ивенты -->
         <h2 class="section-title" id="activities">☄️ Геймплей и Активации</h2>
         <p class="section-desc">Всё, что поможет тебе заработать монеты и залутать топовую броню.</p>
 
@@ -469,12 +534,11 @@
             </div>
         </div>
 
-        <!-- Раздел: Баги, Идеи и Тикеты -->
+        <!-- Раздел: Тикеты и Админы -->
         <h2 class="section-title" id="tickets">🎟️ Охота за багами & Поддержка</h2>
         <p class="section-desc">Нашел баг на бете? Сообщи нам и получи донат-кейсы или валюту!</p>
 
         <div class="grid">
-            <!-- Симулятор тикета -->
             <div class="card">
                 <h3>📩 Отправить Тикет / Сообщить о баге</h3>
                 <form onsubmit="event.preventDefault(); alert('Скопируйте текст обращения и отправьте администратору в Discord/Telegram!');">
@@ -485,7 +549,6 @@
                     <div class="form-group">
                         <label>Тип обращения</label>
                         <select class="form-control">
-                            <label>Тип обращения</label>
                             <option>Нашел критический баг (Награда)</option>
                             <option>Жалоба на читера</option>
                             <option>Покупка доната временно вручную</option>
@@ -500,7 +563,6 @@
                 </form>
             </div>
 
-            <!-- Администрация -->
             <div class="card">
                 <h3>👑 Администрация Проекта</h3>
                 <p style="margin-bottom: 20px;">По всем вопросам беты, покупки доната и багов пишите напрямую руководству:</p>
@@ -550,7 +612,7 @@
                     <p>Стримы kimelow34</p>
                 </div>
             </a>
-            <a href="https://www.youtube.com/@Kimelow" target="_blank" style="text-decoration:none;">
+            <a href="https://www.youtube.com/@InfinityBlazeGrief" target="_blank" style="text-decoration:none;">
                 <div class="card" style="text-align:center; padding:24px;">
                     <div class="card-icon">📺</div>
                     <h3>YouTube</h3>
@@ -563,26 +625,58 @@
 
     <!-- Подвал -->
     <footer>
-        <p>© 2026 Infinity Blaze (Blaze Grid). Minecraft Grief 1.16.5</p>
+        <p>© 2026 Infinity Blaze (Blaze Grid). Minecraft Grief SMP 1.16.5</p>
         <p style="margin-top: 8px; font-size: 0.8rem; color: #666;">По всем вопросам: kimesp2202@gmail.com</p>
     </footer>
 
-    <!-- Скрипт копирования IP -->
+    <!-- Скрипты -->
     <script>
-        function copyIP() {
-            const ipText = document.getElementById('ip-address').innerText;
-            const copyBtn = document.getElementById('copy-btn');
+        // Функция копирования IP
+        function copyIP(text, btnId) {
+            const btn = document.getElementById(btnId);
+            const originalText = btn.innerText;
 
-            navigator.clipboard.writeText(ipText).then(() => {
-                copyBtn.innerText = "IP Скопирован!";
-                copyBtn.style.background = "#22c55e";
+            navigator.clipboard.writeText(text).then(() => {
+                btn.innerText = "Скопировано!";
+                btn.style.background = "#22c55e";
 
                 setTimeout(() => {
-                    copyBtn.innerText = "Скопировать IP";
-                    copyBtn.style.background = "linear-gradient(135deg, #ff5500 0%, #ff0055 100%)";
+                    btn.innerText = originalText;
+                    btn.style.background = "linear-gradient(135deg, #ff5500 0%, #ff0055 100%)";
                 }, 2000);
             });
         }
+
+        // Загрузка статуса сервера с кастомным лимитом 500
+        async function updateServerStatus() {
+            const ip = 'infinityblaze.joinserver.ru';
+            const statusText = document.getElementById('status-text');
+            const statusDot = document.getElementById('status-dot');
+            const onlineCount = document.getElementById('online-count');
+
+            try {
+                const response = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+                const data = await response.json();
+
+                if (data.online) {
+                    statusDot.style.backgroundColor = '#22c55e';
+                    statusText.innerText = 'СЕРВЕР ОНЛАЙН';
+                    statusText.style.color = '#22c55e';
+                    onlineCount.innerText = `Игроков онлайн: ${data.players.online} / 500`;
+                } else {
+                    statusDot.style.backgroundColor = '#ef4444';
+                    statusText.innerText = 'СЕРВЕР ОФФЛАЙН';
+                    statusText.style.color = '#ef4444';
+                    onlineCount.innerText = 'Сервер на техническом обслуживании';
+                }
+            } catch (error) {
+                statusText.innerText = 'ОШИБКА ПОДКЛЮЧЕНИЯ';
+                onlineCount.innerText = 'Не удалось получить данные';
+            }
+        }
+
+        updateServerStatus();
+        setInterval(updateServerStatus, 30000);
     </script>
 </body>
 </html>
