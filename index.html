@@ -280,6 +280,28 @@
             left: 0;
         }
 
+        /* Кнопка открытия правил GitHub */
+        .btn-rules-page {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: var(--gradient-fire);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.25);
+            text-align: center;
+        }
+
+        .btn-rules-page:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.45);
+            color: #ffffff;
+        }
+
         /* Таблица Рангов */
         .ranks-grid {
             display: grid;
@@ -481,6 +503,7 @@
                     <li><b>Запрещено:</b> Использование софта, читов (X-Ray, KillAura, Fly) и автокликеров. <i>(Бан от 30 дней до пермача)</i>.</li>
                     <li>Багоюз и дюп строго караются баном от 14 дней с изъятием имущества.</li>
                 </ul>
+                <a href="rules.html" class="btn-rules-page">📜 Открыть полный свод правил</a>
             </div>
             <div class="card">
                 <h3>🔍 Регламент Проверки</h3>
